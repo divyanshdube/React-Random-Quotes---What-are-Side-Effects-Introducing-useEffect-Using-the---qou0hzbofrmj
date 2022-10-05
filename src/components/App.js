@@ -19,32 +19,32 @@ var colors = [
 let Color;
 
 const App = () => {
-  const [setquotes, isSetQuotes] = useState();
-  const [setauthor, isSetAuthor] = useState();
+  const [quotes, setQuotes] = useState();
+  const [author, setAuthor] = useState();
 
-  const onClickHandler = () => {
+  function fetching() {
     fetch("https://api.quotable.io/random")
-      .then((response) => response.json())
-      .then((response) => {
-        isSetQuotes(response.content);
-        isSetAuthor(response.author);
+      .then((res) => res.json())
+      .then((res) => {
+        setQuotes(res.content);
+        setAuthor(res.author);
       });
     Color = parseInt(Math.random() * 12);
     document.body.style.backgroundColor = colors[Color];
-  };
+  }
 
   return (
     <div id="main">
       <div id="wrapper">
         <div id="quote-box">
           <div className="quote-text">
-            <i>{setquotes}</i>
+            <i>{quotes}</i>
           </div>
-          <div className="quote-author">{setauthor}</div>
+          <div className="quote-author">{author}</div>
 
           <div className="buttons">
-            <button className="button" onClick={onClickHandler} id="new-quote">
-              Click Me !
+            <button className="button" onClick={fetching} id="new-quote">
+              Click
             </button>
           </div>
         </div>
